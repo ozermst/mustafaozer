@@ -1,0 +1,34 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load blog_tags %}
+{% get_recent_blog_pages as recent_blog_pages %}
+{% with recent_blog_pages|length as length %}
+    {% if length %}
+        <div class="mx-4 my-4">
+            <h2 class="text-xl font-medium prose">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="grid grid-cols-1 {% if length == 1 %} grid-cols-1 {% elif length == 2 %} grid-cols-2 gap-4 {% else %} gap-4 sm:grid-cols-2 md:grid-cols-3 {% endif %}">
+        {% for page in recent_blog_pages %}
+            {% if forloop.counter0 < self.number_of_pages %}
+                <div class="flex flex-col h-full overflow-hidden md:rounded md:shadow-xl">
+                    <div>{% image page.main_image fill-1000x500 %}</div>
+                    <div class="flex flex-col justify-between flex-grow p-4">
+                        <div>
+                            <h2 class="text-lg font-medium prose">{{ page.title }}</h2>
+                            <p class="my-2 prose">
+                                {% if forloop.first %}
+                                    {{ page.intro|truncatechars:300 }}
+                                {% else %}
+                                    {{ page.intro|truncatechars:100 }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="flex justify-end">
+                            <a href="{% pageurl page %}" class="prose link link-primary">{% trans "Read more" %}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endwith %}

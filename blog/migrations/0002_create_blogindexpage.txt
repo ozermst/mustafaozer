@@ -1,0 +1,29 @@
+from django.db import migrations
+
+from home.models import HomePage
+from blog.models import BlogIndexPage
+
+
+def create_blogindexpage(apps, schema_editor):
+
+    blogindexpage = BlogIndexPage(title="Blog index page", slug="blog")
+
+    homepage = HomePage.objects.get(slug="home")
+    homepage.add_child(instance=blogindexpage)
+
+    revision = blogindexpage.save_revision()
+    blogindexpage.save()
+
+    if blogindexpage.live:
+        revision.publish()
+
+
+def remove_blogindexpage(apps, schema_editor):
+    BlogIndexPage.objects.filter(slug="blog", depth=3).delete()
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [("blog", "0001_initial")]
+
+    operations = [migrations.RunPython(create_blogindexpage, remove_blogindexpage)]

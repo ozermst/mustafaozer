@@ -1,0 +1,111 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-01 20:02+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: models.py:32 models.py:40 models.py:41 wagtail_hooks.py:12
+msgid "Header"
+msgstr ""
+
+#: models.py:35
+msgid "Site name"
+msgstr "Site ismi"
+
+#: models.py:36
+msgid "Menu items"
+msgstr "Menü öğeleri"
+
+#: models.py:56 models.py:109
+msgid "Submenu title"
+msgstr ""
+
+#: models.py:64
+msgid "Always"
+msgstr "Her zaman"
+
+#: models.py:65
+msgid "When logged in"
+msgstr "Giriş yapıldığında"
+
+#: models.py:66
+msgid "When not logged in"
+msgstr "Giriş yapılmadığında"
+
+#: models.py:105
+msgid "Link title"
+msgstr "Link başlığı"
+
+#: models.py:106
+msgid "Url"
+msgstr "Link"
+
+#: models.py:107
+msgid "Page"
+msgstr "Sayfa"
+
+#: models.py:108
+msgid "Open in new tab"
+msgstr "Yeni sekmede aç"
+
+#: models.py:110
+msgid "Icon"
+msgstr "İkon"
+
+#: models.py:111
+msgid "Show when"
+msgstr ""
+
+#: models.py:116
+msgid "Header menu item"
+msgstr "Başlık menüsü öğesi"
+
+#: models.py:117
+msgid "Header menu items"
+msgstr "Başlık menüsü öğeleri"
+
+#: templates/header/footer.txt:25
+msgid "Legal"
+msgstr "Yasal"
+
+#: templates/header/footer.txt:26
+msgid "Terms of use"
+msgstr "Kullanım şartları"
+
+#: templates/header/footer.txt:27
+msgid "Privacy policy"
+msgstr "Gizlilik politikası"
+
+#: templates/header/footer.txt:28
+msgid "Cookie policy"
+msgstr "Çerez politikası"
+
+#: templates/header/footer.txt:63
+msgid "Contact form"
+msgstr "İletişim formu"
+
+#: templates/header/header.html:16
+msgid "Sitename"
+msgstr "Site ismi"
+
+#: templates/header/header.html:54
+msgid "Logout"
+msgstr "Çıkış"
+
+#: templates/header/header.html:58
+msgid "Login"
+msgstr "Giriş"

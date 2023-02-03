@@ -1,0 +1,74 @@
+{% load i18n wagtailcore_tags %}
+{% load site_settings_tags header_tags %}
+{% wagtail_site as current_site %}
+{% get_current_language as LANGUAGE_CODE %}
+<div class="justify-between navbar text-primary-content bg-primary">
+    <div>
+        <div class="flex-none md:hidden"></div>
+        <div>
+            <a href="/{{ LANGUAGE_CODE }}" class="text-xl normal-case btn btn-ghost">
+                {% get_site_name as site_name %}
+                {% if site_name %}
+                    {{ site_name }}
+                {% elif current_site %}
+                    {{ current_site.site_name }}
+                {% else %}
+                    {% trans "Sitename" %}
+                {% endif %}
+            </a>
+        </div>
+    </div>
+    <div class="flex-none hidden md:block">
+        <ul tabindex="0" class="p-0 menu menu-horizontal">
+            {% get_header_menu None request.user.is_authenticated as main_menu %}
+            {% for item in main_menu %}
+                {% comment %} {% get_menu item.slug item.page request.user.is_authenticated as submenu %} {% endcomment %}
+                <li>
+                    <a href="{{ item.url }} {% if item.open_in_new_tab %} target="_blank"{% endif %}">{{ item.title }}</a>
+                    {% comment %}
+                    {% if submenu %}
+                        <ul class="p-2 bg-base-100">
+                            {% for subitem in submenu %}
+                                <li>
+                                    <a href="{{ subitem.url }}">{{ subitem.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endcomment %}
+                </li>
+            {% endfor %}
+        </ul>
+        <ul tabindex="0" class="p-0 menu menu-horizontal">
+            {% if request.user.is_authenticated %}
+                <li>
+                    {% if request.user.first_name %}
+                        <span>{{ request.user.first_name }}</span>
+                    {% else %}
+                        <span>{{ request.user.username }}</span>
+                    {% endif %}
+                </li>
+                <li>
+                    <a href="{% url 'account_logout' %}">{% trans "Logout" %}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'account_login' %}">{% trans "Login" %}</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul tabindex="0" class="p-0 menu menu-horizontal">
+            {% if page %}
+                {% for translation in page.get_translations.live %}
+                    {% get_language_info for translation.locale.language_code as lang %}
+                    <li>
+                        <a href="{% pageurl translation %}"
+                           rel="alternate"
+                           hreflang="{{ language_code }}">{{ lang.name_local }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="flex-none md:hidden"></div>
+</div>

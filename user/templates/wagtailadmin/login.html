@@ -1,0 +1,19 @@
+{% extends "wagtailadmin/login.html" %}
+{% load i18n wagtailcore_tags site_settings_tags %}
+{% block branding_login %}
+    {% comment %}
+    {% with settings.site_settings.SiteSettings as settings %}
+        {% if settings.site_name %}
+            {% blocktrans with site_name=settings.site_name  %}Sign in to<br>{{ site_name }}{% endblocktrans %}
+        {% else %}
+            {% trans "Sign in" %}
+        {% endif %}
+    {% endwith %}
+    {% endcomment %}
+    {% get_site_name as site_name %}
+    {% if  site_name %}
+        {% blocktrans with site_name=site_name  %}Sign in to<br>{{ site_name }}{% endblocktrans %}
+    {% else %}
+        {% trans "Sign in" %}
+    {% endif %}
+{% endblock branding_login %}

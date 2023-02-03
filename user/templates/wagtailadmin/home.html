@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/home.html" %}
+{% load i18n wagtailcore_tags %}
+{% block branding_welcome %}
+    {% comment %} {% with settings.site_settings.SiteSettings as settings %}
+        {% if settings.site_name %}
+            {% blocktrans with site_name=settings.site_name  %}Welcome to admin dashboard for {{ site_name }}{% endblocktrans %}
+        {% elif root_site %}
+            {% blocktrans with site_name=settings.site_name  %}Welcome to admin dashboard for {{ root_site }}{% endblocktrans %}
+        {% else %}
+            {% trans "Welcome to admin dashboard" %}
+        {% endif %}
+    {% endwith %} {% endcomment %}
+    {% blocktrans with root_site=root_site  %}Welcome to admin dashboard for {{ root_site }}{% endblocktrans %}
+{% endblock branding_welcome %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load i18n %}
+{% block body_class %}
+{% endblock body_class %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block header %}
+    {% include "header/header.html" %}
+{% endblock header %}
+{% block content %}
+    <div class="text-gray-600">
+        <div class="container mx-auto md:px-5">
+            {% for post in blog_pages %}
+                {% if forloop.first %}
+                    <div class="flex items-center p-2 mx-auto mt-10 mb-8 lg:w-2/3">
+                        {% if request.GET.category %}
+                            <h2 class="text-xl font-semibold">
+                                {% blocktrans with category=request.GET.category  %}Showing pages with category, "{{ category }}"{% endblocktrans %}
+                            </h2>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="flex gap-4 p-2 mx-auto mt-5 mb-4 lg:w-2/3 lg:rounded-md lg:shadow-md ">
+                    {% if post.main_image %}
+                        <div>
+                            <div class="avatar">
+                                <div class="w-20 rounded-full">{% image post.main_image fill-100x100 %}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="flex flex-col justify-between flex-grow">
+                        <h2 class="font-medium leading-relaxed text-md">{{ post.title }}</h2>
+                        {% comment %} <div>{{ post.intro|truncatewords:10 }}</div> {% endcomment %}
+                        <div class="prose sm:hidden">{{ post.intro|truncatewords:10 }}</div>
+                        <div class="hidden prose sm:block">{{ post.intro|truncatewords:30 }}</div>
+                        <div class="flex justify-end">
+                            <a href="{% pageurl post %}" class="link link-primary">{% trans "Read more" %}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}
+    {% include "footer/footer.html" %}
+{% endblock footer %}

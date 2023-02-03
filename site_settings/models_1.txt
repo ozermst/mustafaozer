@@ -1,0 +1,96 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from wagtail.admin.panels import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
+    TabbedInterface,
+)
+from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting, register_setting
+from wagtail.fields import StreamField
+from wagtail.models import TranslatableMixin
+from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import SynchronizedField, TranslatableField
+
+from . import flexblocks
+
+
+@register_setting
+class SiteSettings(BaseSiteSetting):
+
+    service_status = models.ForeignKey(
+        "ServiceStatus", blank=True, null=True, on_delete=models.SET_NULL, related_name="+"
+    )
+
+    site_name = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=254, blank=True)
+    phone = models.CharField(max_length=255, blank=True)
+    website = models.URLField(blank=True)
+    instagram = models.URLField(blank=True, help_text="Instagram URL")
+    facebook = models.URLField(blank=True, help_text="Facebook URL")
+    twitter = models.URLField(blank=True, help_text="Twitter URL")
+    youtube = models.URLField(blank=True, help_text="YouTube Channel URL")
+
+    panels = [
+        FieldPanel("service_status", heading=_("Service status")),
+        FieldPanel("site_name", heading=_("Site name")),
+        MultiFieldPanel(
+            [
+                FieldPanel("instagram"),
+                FieldPanel("facebook"),
+                FieldPanel("twitter"),
+                FieldPanel("youtube"),
+            ],
+            heading=_("Social media settings"),
+        ),
+    ]
+
+    class Meta:
+        verbose_name = _("Site settings")
+        verbose_name_plural = _("Site settings")
+
+
+@register_snippet
+class ServiceStatus(TranslatableMixin):
+
+    CONSTRUCTION = "CON"
+    COMING_SOON = "COS"
+    MAINTENANCE = "MNT"
+    SERVICE_STATUS_CHOICES = [
+        (COMING_SOON, _("Coming soon")),
+        (MAINTENANCE, _("Under maintenance")),
+        (CONSTRUCTION, _("Under construction")),
+    ]
+
+    def __str__(self):
+        for choice in self.SERVICE_STATUS_CHOICES:
+            if choice[0] == self.status:
+                return str(choice[1])
+
+    @property
+    def service_code(self):
+        for choice in self.SERVICE_STATUS_CHOICES:
+            if choice[0] == self.status:
+                return str(choice[0])
+
+    sitesettings = models.OneToOneField(SiteSettings, blank=True, on_delete=models.CASCADE)
+
+    status = models.CharField(max_length=3, unique=True, choices=SERVICE_STATUS_CHOICES)
+    expire_date = models.DateTimeField(blank=True)
+    title = models.CharField(max_length=50, blank=True)
+    image = models.ForeignKey(
+        "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+    )
+
+    panels = [
+        FieldPanel("status", heading=_("Status")),
+        FieldPanel("expire_date", heading=_("Expire date")),
+        FieldPanel("title", heading=_("Title")),
+        FieldPanel("image", heading=_("Image")),
+    ]
+
+    class Meta:
+        verbose_name = _("Service status")
+        verbose_name_plural = _("Service status")
+        unique_together = ("translation_key", "locale")

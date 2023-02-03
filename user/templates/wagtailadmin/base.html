@@ -1,0 +1,31 @@
+{% extends "wagtailadmin/base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% load site_settings_tags %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock extra_css %}
+{% block branding_logo %}
+    {% get_site_settings as settings %}
+    {% comment %} {% with settings.site_settings.SiteSettings as settings %} {% endcomment %}
+    {% if settings.branding_logo %}
+        <div class="branding_logo">{% image settings.branding_logo fill-200x200 %}</div>
+    {% else %}
+        <div class="m-2 avatar">
+            <div class="w-16 rounded-full ring ring-neutral ring-offset-base-100 ring-offset-2">
+                <svg class="w-16 h-16"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.5"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     class="feather feather-user">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+    {% endif %}
+    {% comment %} {% endwith %} {% endcomment %}
+{% endblock branding_logo %}

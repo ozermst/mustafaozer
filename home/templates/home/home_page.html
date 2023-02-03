@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block header %}
+    {% include "header/header.html" %}
+{% endblock header %}
+{% block content %}
+    {% for block in page.flexcomponents %}
+        {% if block.block_type == 'slideshow_top' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+    <div class="container mx-auto md:w-4/6">
+        {% for block in page.flexcomponents %}
+            {% if not block.block_type == 'slideshow_top' %}
+                <div class="mt-10">{% include_block block %}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}
+{% block footer %}
+    {% include "footer/footer.html" %}
+{% endblock footer %}

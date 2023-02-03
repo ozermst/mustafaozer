@@ -1,0 +1,37 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image settings.site_status.image width-1280 as image %}
+<div class="grid object-cover object-center min-h-screen"
+     style="background-image: url({{ image.url }})">
+    <div class="flex flex-col justify-between">
+        <div class="justify-between bg-opacity-20 navbar text-accent bg-primary-content">
+            <div class="text-xl font-bold normal-case">
+                {% if settings.site_name %}
+                    {{ settings.site_name }}
+                {% else %}
+                    {{ current_site.site_name }}
+                {% endif %}
+            </div>
+            <div class="hidden md:block">
+                {% if settings.email %}
+                    <a href="mailto:{{ settings.email }}">
+                        <span class="text-2xl">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                    </a>
+                {% endif %}
+                {% if settings.instagram %}
+                    <a href="{{ settings.instagram }}" target="_blank">
+                        <span class="text-2xl">
+                            <i class="fa-brands fa-instagram"></i>
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="mb-10">
+            <div class="flex justify-center">
+                <h1 class="font-bold uppercase text-8xl text-neutral-content">{{ settings.site_status.title }}</h1>
+            </div>
+        </div>
+    </div>
+</div>

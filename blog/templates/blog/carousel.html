@@ -1,0 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% for slide in page.carousel_slides.all %}
+    {% if forloop.first %}
+        {% image slide.image width-800 as image %}
+        <div class="flex items-center min-h-screen bg-no-repeat bg-cover bg-center"
+             style="background-image: url({{ image.url }})">
+            <div class="container mx-auto text-white">
+                {% if slide.cta_heading %}<h2 class="mb-5 text-5xl font-bold">{{ slide.cta_heading }}</h2>{% endif %}
+                {% if slide.cta_subheading %}<h3 class="mb-5 text-2xl font-medium">{{ slide.cta_subheading }}</h3>{% endif %}
+                {% if slide.cta_message %}<p class="mb-5 text-xl">{{ slide.cta_message|richtext }}</p>{% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% empty %}
+    <div class="flex items-center w-screen h-96 bg-no-repeat bg-cover bg-center"
+         style="background-image: url(https://dummyimage.com/1280x500.jpg)">
+    </div>
+{% endfor %}

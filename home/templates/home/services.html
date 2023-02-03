@@ -1,0 +1,24 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with self.services|length as length %}
+    {% if length %}
+        <div class="mx-4 my-4">
+            <h2 class="text-xl font-medium prose">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="grid grid-cols-1 {% if length == 1 %} grid-cols-1 {% elif length == 2 %} grid-cols-2 gap-4 {% else %} gap-4 sm:grid-cols-2 md:grid-cols-3 {% endif %}">
+        {% for service in self.services %}
+            <div class="flex flex-col h-full overflow-hidden md:rounded md:shadow-xl">
+                <div>{% image service.image fill-1000x500 %}</div>
+                <div class="p-4">
+                    <div>
+                        <h2 class="text-lg font-medium prose">{{ service.name }}</h2>
+                        <div class="my-2 prose prose-p:text-sm prose-ul:text-sm">{{ service.details|richtext }}</div>
+                    </div>
+                    <div class="">
+                        {% comment %} <a href="{% pageurl post %}" class="prose link link-primary">Devamını oku</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endwith %}

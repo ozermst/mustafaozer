@@ -1,0 +1,25 @@
+<div class="my-8">
+    {% if self.heading %}
+        <div class="flex items-center p-2 mx-auto">
+            <h2 class="text-xl font-semibold">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="flex flex-col gap-2">
+        {% for university in self.university_education %}
+            <div class="p-2 overflow-hidden md:rounded md:shadow-xl">
+                {% now "Y-m-d" as todays_date %}
+                <p class="prose">
+                    {{ university.date_from | date:"Y" }} -
+                    {% if university.date_to|date:"Y-m-d" > todays_date %}
+                        Halen
+                    {% else %}
+                        {{ university.date_to| date:"Y" }}
+                    {% endif %}
+                </p>
+                <h2 class="text-xl font-semibold">{{ university.degree }}</h2>
+                <p class="prose">{{ university.university }}, {{ university.faculty }}</p>
+                <p class="prose">{{ university.city }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

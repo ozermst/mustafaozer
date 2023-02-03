@@ -1,0 +1,53 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% comment %} 
+{% if LANGUAGE_CODE == "en" %}
+    {% get_menu "main-menu" None request.user.is_authenticated as menu %}
+{% elif LANGUAGE_CODE == "tr" %}
+    {% get_menu "servis-ve-urunler" None request.user.is_authenticated as menu %}
+{% endif %}
+{% endcomment %}
+<div>
+    <footer class="p-10 mt-10 footer bg-neutral text-neutral-content">
+        <div>
+            <span class="footer-title">Services</span>
+            {% for item in menu %}
+                <a class="link link-hover"
+                   href="{{ item.url }} {% if item.open_in_new_tab %} target="_blank"{% endif %}">{{ item.title }}</a>
+            {% endfor %}
+        </div>
+        <div>
+            <span class="footer-title">Company</span>
+            <a class="link link-hover" href="/">{% trans "Home" %}</a>
+            <a class="link link-hover">Contact</a>
+            <a class="link link-hover">Jobs</a>
+            <a class="link link-hover">Press kit</a>
+        </div>
+        <div>
+            <span class="footer-title">Legal</span>
+            <a class="link link-hover">Terms of use</a>
+            <a class="link link-hover">Privacy policy</a>
+            <a class="link link-hover">Cookie policy</a>
+        </div>
+        <div>
+            <span class="footer-title">Social Media</span>
+            {% if settings.email %}
+                <a href="mailto:{{ settings.email }}">
+                    <span class="text-2xl">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                </a>
+            {% endif %}
+            {% if settings.instagram %}
+                <a href="{{ settings.instagram }}" target="_blank">
+                    <span class="text-2xl">
+                        <i class="fa-brands fa-instagram"></i>
+                    </span>
+                </a>
+            {% endif %}
+        </div>
+    </footer>
+    <div class="p-10 footer bg-neutral text-neutral-content">
+        <p>Copyright © 2022 - All right reserved by CENTO Information Technologies Ltd</p>
+    </div>
+</div>

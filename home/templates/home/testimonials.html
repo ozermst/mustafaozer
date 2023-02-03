@@ -1,0 +1,47 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% if self.testimonials|length %}
+    <div class="mx-4 my-4">
+        <h2 class="text-xl font-medium prose">{{ self.heading }}</h2>
+    </div>
+{% endif %}
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    {% for testimonial in self.testimonials %}
+        {% if forloop.counter < 3 %}
+            <div class="flex flex-col justify-between h-full p-4 rounded shadow-xl">
+                <div class="flex flex-col mb-4">
+                    <span><i class="fa-solid fa-quote-left"></i></span>
+                    <div class="prose">{{ testimonial.details }}</div>
+                    <span class="self-end"><i class="fa-solid fa-quote-right"></i></span>
+                </div>
+                <div class="flex gap-4">
+                    {% if testimonial.image %}
+                        <div class="avatar">
+                            <div class="w-20 rounded-full">{% image testimonial.image fill-100x100 %}</div>
+                        </div>
+                    {% else %}
+                        <div class="m-2 avatar">
+                            <div class="w-16 rounded-full ring ring-neutral ring-offset-base-100 ring-offset-2">
+                                <svg class="w-16 h-16"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     stroke-width="1.5"
+                                     stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <p>{{ testimonial.first_name }} {{ testimonial.last_name }}</p>
+                        <p>{{ testimonial.title }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

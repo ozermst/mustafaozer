@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block body_class %}
+{% endblock body_class %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block header %}
+    {% include "header/header.html" %}
+{% endblock header %}
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+{% block content %}
+    <div class="text-gray-600">
+        <div class="container mx-auto md:w-4/6">
+            <div class="max-w-xs mx-auto mt-24">
+                <div class="mb-2 prose">
+                    <h1>{% trans "Sign Up" %}</h1>
+                    <p>
+                        {% blocktrans %}Already have an account?<br>Then please <a href="{{ login_url }}" class="link link-primary">sign in</a>.{% endblocktrans %}
+                    </p>
+                </div>
+                <form class="signup"
+                      id="signup_form"
+                      method="post"
+                      action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    <div class="flex flex-col gap-2 prose">
+                        {{ form|crispy }}
+                        {% if redirect_field_value %}
+                            <input type="hidden"
+                                   name="{{ redirect_field_name }}"
+                                   value="{{ redirect_field_value }}"/>
+                        {% endif %}
+                        <button type="submit" class="mt-4 btn btn-accent">{% trans "Sign Up" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}
+    {% include "footer/footer.html" %}
+{% endblock footer %}

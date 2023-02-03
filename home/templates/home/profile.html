@@ -1,0 +1,79 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="p-2 mx-auto my-8 overflow-hidden md:p-4 md:rounded-lg lg:rounded-2xl md:shadow-xl">
+    <div class="flex flex-col gap-2 md:flex-row">
+        <div class="flex justify-center">
+            {% if self.image %}
+                <div>
+                    <div class="m-2 avatar">
+                        <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                            {% image self.image fill-150x150 %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div>
+                    <div class="m-2 avatar placeholder">
+                        <div class="w-24 rounded-full bg-neutral-focus text-neutral-content ring ring-primary ring-offset-base-100 ring-offset-2">
+                            <span class="text-3xl">{{ self.first_name|first }}{{ self.last_name|first }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="flex-grow">
+            <div class="flex items-center gap-2">
+                <h2 class="flex-grow">{{ self.first_name }} {{ self.last_name }}</h2>
+                <div class="hidden md:block">
+                    {% if self.email %}
+                        <a class="hover:no-underline" href="mailto:{{ self.email }}">
+                            <span class="text-2xl">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+                        </a>
+                    {% endif %}
+                    {% if self.instagram %}
+                        <a class="hover:no-underline"
+                           href="{{ self.instagram }}"
+                           target="_blank">
+                            <span class="text-2xl">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div>
+                {% if self.title %}<h2>{{ self.title }}</h2>{% endif %}
+                {% if self.title %}<p>{{ self.company }}</p>{% endif %}
+                {% if self.phone %}
+                    <div>
+                        <span class="flex items-center gap-1">
+                            <i class="fa-solid fa-phone"></i>
+                            {{ self.phone }}
+                        </span>
+                    </div>
+                {% endif %}
+                <div class="flex gap-2 md:hidden">
+                    {% if self.email %}
+                        <a class="hover:no-underline" href="mailto:{{ self.email }}">
+                            <span class="text-2xl">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+                        </a>
+                    {% endif %}
+                    {% if self.instagram %}
+                        <a class="hover:no-underline"
+                           href="{{ self.instagram }}"
+                           target="_blank">
+                            <span class="text-2xl">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="hidden my-2 prose md:block">{{ self.intro }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="my-2 prose md:hidden">{{ self.intro }}</div>
+</div>

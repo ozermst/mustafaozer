@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.textinput,
+.emailinput,
+.textarea {
+  @apply w-full max-w-xs input input-bordered input-primary;
+}
+
+.textarea {
+  @apply min-h-[8rem];
+}
+
+/*
+.control-label {
+  @apply hidden;
+}
+*/

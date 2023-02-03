@@ -1,0 +1,68 @@
+{% load i18n %}
+{% load header_footer_tags %}
+<div>
+    <footer class="p-10 mt-10 footer bg-neutral text-neutral-content">
+        {% get_footer_menu None request.user.is_authenticated as menu_blocks %}
+        {% for menu_block in menu_blocks %}
+            <div>
+                <span class="footer-title">{{ menu_block.header }}</span>
+                {% for menu_item in menu_block.menu_items %}
+                    <a class="link link-hover"
+                       href="{{ menu_item.url }} {% if menu_item.open_in_new_tab %} target="_blank"{% endif %}">{{ menu_item.title }}</a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% comment %}
+        <div>
+            <span class="footer-title">Company</span>
+            <a class="link link-hover">Contact</a>
+            <a class="link link-hover">Jobs</a>
+            <a class="link link-hover">Press kit</a>
+        </div>
+        {% endcomment %}
+        <div>
+            <span class="footer-title">{% trans "Legal" %}</span>
+            <a class="link link-hover">{% trans "Terms of use" %}</a>
+            <a class="link link-hover">{% trans "Privacy policy" %}</a>
+            <a class="link link-hover">{% trans "Cookie policy" %}</a>
+        </div>
+        <div>
+            <span class="footer-title">Social Media</span>
+            {% if settings.instagram %}
+                <a href="{{ settings.instagram }}" target="_blank">
+                    <span class="text-2xl">
+                        <i class="fa-brands fa-instagram"></i>
+                    </span>
+                </a>
+            {% endif %}
+            <span class="footer-title">Contact</span>
+            {% if settings.phone %}
+                <div class="inline-flex items-center gap-2">
+                    <span class="flex items-center gap-1">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    {{ settings.phone }}
+                </div>
+            {% endif %}
+            {% if settings.email %}
+                <a class="inline-flex items-center gap-2"
+                   href="mailto:{{ settings.email }}">
+                    <span class="text-2xl">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                    {{ settings.email }}
+                </a>
+            {% endif %}
+            <a class="inline-flex items-center gap-2" href="/iletisim">
+                <span class="text-2xl">
+                    {% comment %} <i class="fa-regular fa-envelope"></i> {% endcomment %}
+                    <i class="fa-regular fa-file-lines"></i>
+                </span>
+                {% trans "Contact form" %}
+            </a>
+        </div>
+    </footer>
+    <div class="p-10 footer bg-neutral text-neutral-content">
+        <p>Copyright © 2022 - All right reserved by CENTO Information Technologies Ltd</p>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static wagtailcore_tags tailwind_filters crispy_forms_tags %}
+{% block body_class %}
+{% endblock body_class %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block header %}
+    {% include "header/header.html" %}
+{% endblock header %}
+{% block content %}
+    <div class="max-w-xs mx-auto mt-5 prose">
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.intro|richtext }}</p>
+        <form method="post" action="{% pageurl page %}">
+            {% csrf_token %}
+            <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2">{{ form|crispy }}</div>
+                <button class="w-full btn btn-primary" type="submit">{{ page.button_text }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+{% block footer %}
+    {% include "footer/footer.html" %}
+{% endblock footer %}

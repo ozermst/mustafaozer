@@ -1,0 +1,10 @@
+.branding_logo {
+  width: 8rem;
+  height: 8rem;
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}

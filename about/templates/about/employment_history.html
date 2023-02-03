@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="my-8">
+    {% if self.heading %}
+        <div class="flex items-center p-2 mx-auto">
+            <h2 class="text-xl font-semibold">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="flex flex-col gap-2">
+        {% for employment in self.employment_history %}
+            <div class="p-2 overflow-hidden md:rounded md:shadow-xl">
+                {% now "Y-m-d" as todays_date %}
+                <p class="prose">
+                    {{ employment.date_from | date:"Y" }} -
+                    {% if employment.date_to|date:"Y-m-d" > todays_date %}
+                        {% trans "Continue" %}
+                    {% else %}
+                        {{ employment.date_to| date:"Y" }}
+                    {% endif %}
+                </p>
+                <h2 class="text-xl font-semibold">{{ employment.job }}</h2>
+                <p class="prose">{{ employment.employer }}</p>
+                <p class="prose">{{ employment.city }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>

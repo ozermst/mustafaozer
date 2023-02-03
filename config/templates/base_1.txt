@@ -1,0 +1,69 @@
+{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar %}
+{% load site_settings_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if page.seo_title %}
+                    {{ page.seo_title }}
+                {% else %}
+                    {{ page.title }}
+                {% endif %}
+            {% endblock title %}
+            {% block title_suffix %}
+                {% wagtail_site as current_site %}
+                {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+            {% endblock title_suffix %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {# Global stylesheets #}
+        <!-- UIkit CSS -->
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/uikit@3.15.15/dist/css/uikit.min.css"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/config.css' %}"/>
+        <!-- UIkit JS -->
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.15/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.15/dist/js/uikit-icons.min.js"></script>
+        <!-- Fontawesome JS -->
+        <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
+        <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
+        <script src="{% static 'fontawesomefree/js/regular.js' %}"></script>
+        <script src="{% static 'fontawesomefree/js/brands.js' %}"></script>
+        {% block extra_css %}
+        {% endblock extra_css %}
+    </head>
+    {% with settings.site_settings.SiteSettings as settings %}
+        <body class="{% block body_class %}{% endblock body_class %}"
+              data-theme="{{ settings.site_theme.theme_code }}">
+            {% wagtailuserbar %}
+            {% comment %} {% with settings.site_settings.SiteSettings as settings %} {% endcomment %}
+            {% if settings.site_status.status_code == "ACT" or request.user.is_staff %}
+                <div class="text-gray-600">
+                    <div class="flex flex-col justify-between min-h-screen">
+                        <div>
+                            {% comment %} {% include "header_footer/header.html" %} {% endcomment %}
+                            {% block header %}
+                            {% endblock header %}
+                            {% block content %}
+                            {% endblock content %}
+                        </div>
+                        {% include "header_footer/footer.html" %}
+                    </div>
+                </div>
+            {% elif settings.site_status.status_code == "CON" %}
+                {% include "site_settings/under_construction.html" %}
+            {% elif settings.site_status.status_code == "COS" %}
+                {% include "site_settings/coming_soon.html" %}
+            {% endif %}
+            {% comment %} {% endwith %} {% endcomment %}
+            {# Global javascript #}
+            <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+            <script type="text/javascript" src="{% static 'js/config.js' %}"></script>
+            {% block extra_js %}
+            {% endblock extra_js %}
+        </body>
+    {% endwith %}
+</html>

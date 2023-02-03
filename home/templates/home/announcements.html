@@ -1,0 +1,29 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with self.announcements|length as length %}
+    {% if length %}
+        <div class="mx-4 my-4">
+            <h2 class="text-xl font-medium prose">{{ self.heading }}</h2>
+        </div>
+    {% endif %}
+    <div class="flex flex-col gap-2">
+        {% for announcement in self.announcements %}
+            <div class="overflow-hidden md:rounded md:shadow-xl">
+                <div class="grid md:grid-cols-5 auto-rows-auto md:p-4 md:gap-4">
+                    <div class="p-4 md:p-0 md:col-span-3">
+                        <div>
+                            <h2 class="text-lg font-medium prose">{{ announcement.title }}</h2>
+                            <h3 class="text-lg font-medium prose">{{ announcement.subtitle }}</h3>
+                            <div class="my-2 prose prose-p:text-base prose-ul:text-base">{{ announcement.message|richtext }}</div>
+                        </div>
+                        <div class="">
+                            {% comment %} <a href="{% pageurl post %}" class="prose link link-primary">Devamını oku</a> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="row-start-1 overflow-hidden md:col-start-4 md:col-span-2 h-fit md:rounded">
+                        {% image announcement.image fill-1000x500 %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endwith %}

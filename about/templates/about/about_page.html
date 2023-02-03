@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% block body_class %}
+{% endblock body_class %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block header %}
+    {% include "header/header.html" %}
+{% endblock header %}
+{% block content %}
+    <div class="container mx-auto md:w-4/6">
+        {% for block in page.flexcomponents %}
+            <div class="mt-10">{% include_block block %}</div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+{% block footer %}
+    {% include "footer/footer.html" %}
+{% endblock footer %}
