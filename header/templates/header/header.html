@@ -10,7 +10,7 @@
                 {% get_site_name as site_name %}
                 {% if site_name %}
                     {{ site_name }}
-                {% elif current_site %}
+                {% elif current_site.site_name %}
                     {{ current_site.site_name }}
                 {% else %}
                     {% trans "Sitename" %}

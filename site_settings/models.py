@@ -18,6 +18,9 @@ class SiteSetting(BaseSiteSetting):
         "wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
     )
 
+    contact_page = models.ForeignKey(
+        "wagtailcore.Page", blank=True, null=True, related_name="+", on_delete=models.CASCADE
+    )
     email = models.EmailField(max_length=254, blank=True)
     phone = models.CharField(max_length=255, blank=True)
     website = models.URLField(blank=True)
@@ -32,7 +35,8 @@ class SiteSetting(BaseSiteSetting):
         FieldPanel("site_status", heading=_("Site status")),
         FieldPanel("theme", heading=_("Theme")),
         MultiFieldPanel(
-            [FieldPanel("email"), FieldPanel("phone")], heading=_("Contact information")
+            [FieldPanel("contact_page"), FieldPanel("email"), FieldPanel("phone")],
+            heading=_("Contact information"),
         ),
         MultiFieldPanel(
             [

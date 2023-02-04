@@ -254,9 +254,7 @@ ACCOUNT_FORMS = {"signup": "user.forms.SignupForm"}
 # ******************************************************************
 
 # BEGIN ReCaptcha
-# RECAPTCHA_PUBLIC_KEY = "6LdTVLAhAAAAAHa2ApqNhuGlMClitfjJO0bc3whB"
 RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
-# RECAPTCHA_PRIVATE_KEY = "6LdTVLAhAAAAAGxGeTmKyFQJewUts9OenE-lgbKa"
 RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
 NOCAPTCHA = True
 # SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]

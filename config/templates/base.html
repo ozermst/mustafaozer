@@ -54,11 +54,11 @@
                 </div>
             </div>
         {% elif settings.site_status.status_code == "CON" %}
-            {% include "site_setting/under_construction.html" %}
+            {% include "site_settings/under_construction.html" %}
         {% elif settings.site_status.status_code == "COS" %}
-            {% include "site_setting/coming_soon.html" %}
+            {% include "site_settings/coming_soon.html" %}
         {% else %}
-            <h1>Fuck</h1>
+            {% include "site_settings/under_construction.html" %}
         {% endif %}
         {# Global javascript #}
         <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>

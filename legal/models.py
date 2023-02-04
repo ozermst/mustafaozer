@@ -7,9 +7,8 @@ from wagtail.models import Page
 
 
 class LegalIndexPage(Page):
-
     parent_page_types = ["home.HomePage"]
-    subpage_types = ["flex.FlexPage", "legal.LegalPage"]
+    subpage_types = ["legal.LegalPage"]
     max_count = 1
 
     def get_context(self, request):
@@ -24,6 +23,8 @@ class LegalIndexPage(Page):
 
 
 class LegalPage(Page):
+    parent_page_types = ["legal.LegalIndexPage"]
+    subpage_types = []
 
     intro = models.TextField(max_length=500)
     body = RichTextField()
